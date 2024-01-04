@@ -6,7 +6,7 @@ import AuthProvider from '@/components/auth-provider'
 import { Toaster } from '@/components/ui/toaster'
 import { cn } from '@/lib/utils'
 
-export const fontSans = FontSans({
+const fontSans = FontSans({
   subsets: ['latin'],
   variable: '--font-sans',
 })
