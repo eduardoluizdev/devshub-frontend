@@ -1,6 +1,6 @@
+import { NextFetchEvent, NextResponse } from 'next/server'
 import { getToken } from 'next-auth/jwt'
 import { NextRequestWithAuth, withAuth } from 'next-auth/middleware'
-import { NextFetchEvent, NextResponse } from 'next/server'
 
 export const middleware = async (
   req: NextRequestWithAuth,
