@@ -1,5 +1,4 @@
 import { isEmpty } from 'lodash'
-import { User } from 'next-auth'
 
 export type LoginFormDataProps = {
   email: string
@@ -15,13 +14,16 @@ const authorize = async (credentials: CredentialsType) => {
 
   const { email, password } = credentials as LoginFormDataProps
 
-  const response = await fetch('http://localhost:3333/auth/signin', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ email, password }),
-  }).then((response) => response.json())
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/auth/signin`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    }
+  ).then((response) => response.json())
 
   if (response.error) {
     throw new Error('Usuário ou senha incorretos')

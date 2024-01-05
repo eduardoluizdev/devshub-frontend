@@ -1,9 +1,9 @@
 import { NextAuthOptions } from 'next-auth'
 import CredentialProvider from 'next-auth/providers/credentials'
 
-import { authorize } from '@/helpers/authorize'
-import { jwt } from '@/helpers/jwt'
-import { session } from '@/helpers/session'
+import { authorize } from '@/lib/authorize'
+import { jwt } from '@/lib/jwt'
+import { session } from '@/lib/session'
 
 export const authOptions: NextAuthOptions = {
   providers: [
