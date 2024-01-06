@@ -9,10 +9,12 @@ export type JWTProps = {
 }
 
 export const jwt = ({ token, user }: JWTProps) => {
-  if (user?.access_token) {
+  if (user) {
     return {
       ...token,
-      access_token: user.access_token,
+      user: {
+        ...user,
+      },
     }
   }
 

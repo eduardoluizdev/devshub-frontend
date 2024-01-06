@@ -7,15 +7,10 @@ export type SessionProps = {
 }
 
 export const session = async ({ session, token }: SessionProps) => {
-  if (token) {
-    return {
-      ...session,
-      user: {
-        ...session.user,
-        access_token: token.access_token,
-      },
-    }
+  return {
+    ...session,
+    user: {
+      ...token.user,
+    },
   }
-
-  return session
 }
