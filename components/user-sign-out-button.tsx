@@ -10,11 +10,11 @@ export function UserSignOutButton() {
 
   return (
     <Button
-      variant={'outline'}
+      variant="secondary"
       onClick={handleSignOut}
-      className="flex items-center justify-between gap-1"
+      className="flex items-center justify-start gap-1 w-full text-muted-foreground"
     >
-      <Icon name="LogOut" size={16} /> Sair
+      <Icon name="LogOut" size={24} /> <span className="text-lg ">Sair</span>
     </Button>
   )
 }
