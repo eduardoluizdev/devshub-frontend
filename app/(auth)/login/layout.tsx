@@ -1,4 +1,18 @@
+import { Metadata } from 'next'
+
 import { Logo } from '@/components/logo'
+
+export const metadata: Metadata = {
+  title: 'Login | Devshub',
+  description: 'Login | Devshub',
+  icons: [
+    {
+      url: '/images/favicon.ico',
+      href: '/images/favicon.ico',
+      sizes: '16x16',
+    },
+  ],
+}
 
 export default function LoginLayout({
   children,

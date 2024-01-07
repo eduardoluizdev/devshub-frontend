@@ -1,5 +1,4 @@
 import { PageHeader } from '@/components/page-header'
-import { customerResource } from '@/resources/customers'
 
 import { CreateCustomerDrawer } from './components/create-customer-drawer'
 import ListCustomersTable from './components/list-customers-table'

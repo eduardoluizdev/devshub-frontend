@@ -1,5 +1,6 @@
 import '@/styles/globals.css'
 
+import { Metadata } from 'next'
 import { Inter as FontSans } from 'next/font/google'
 
 import { AuthProvider } from '@/components/auth-provider'
@@ -14,6 +15,18 @@ const fontSans = FontSans({
 
 type RootLayoutProps = {
   children: React.ReactNode
+}
+
+export const metadata: Metadata = {
+  title: 'Dashboard | Devshub',
+  description: 'Dashboard | Devshub',
+  icons: [
+    {
+      url: '/images/favicon.ico',
+      href: '/images/favicon.ico',
+      sizes: '16x16',
+    },
+  ],
 }
 
 export default async function RootLayout({ children }: RootLayoutProps) {
