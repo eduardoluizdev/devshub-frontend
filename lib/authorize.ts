@@ -1,5 +1,7 @@
 import { isEmpty } from 'lodash'
 
+import { httpServer } from './httpServer'
+
 export type LoginFormDataProps = {
   email: string
   password: string
@@ -14,22 +16,16 @@ const authorize = async (credentials: CredentialsType) => {
 
   const { email, password } = credentials as LoginFormDataProps
 
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/auth/signin`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    }
-  ).then((response) => response.json())
+  const { data } = await httpServer.post('/auth/signin', {
+    email,
+    password,
+  })
 
-  if (response.error) {
+  if (data.error) {
     throw new Error('Usuário ou senha incorretos')
   }
 
-  return response
+  return data
 }
 
 export { authorize }

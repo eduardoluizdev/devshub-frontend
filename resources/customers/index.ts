@@ -1,54 +1,24 @@
-import { getServerSession } from 'next-auth'
 import { getSession } from 'next-auth/react'
 
 import { Customer } from '@/entities/customer'
-import { authOptions } from '@/lib/auth'
+import { httpClient } from '@/lib/httpClient'
 
-const create = async (data: Customer) => {
+const create = async (params: Customer) => {
   const session = await getSession()
 
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/customers`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${session?.user.access_token}`,
-        },
-        body: JSON.stringify({
-          ...data,
-          userId: session?.user.id,
-        }),
-      }
-    )
+  const { data } = await httpClient.post('/customers', {
+    ...params,
+    userId: session?.user.id,
+  })
 
-    return await response.json()
-  } catch (error) {
-    console.error(error)
-  }
+  return data
 }
 
-const get = async () => {
-  const session = await getServerSession(authOptions)
-
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/customers`,
-      {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${session?.user.access_token}`,
-        },
-      }
-    ).then((res) => res.json())
-
-    return response.customers as Customer[]
-  } catch (error) {
-    console.error(error)
-  }
+const getAll = async () => {
+  const { data } = await httpClient.get('/customers')
+  return data
 }
 
-const customerResource = { create, get }
+const customerResource = { create, getAll }
 
 export { customerResource }
