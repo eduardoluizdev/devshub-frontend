@@ -20,14 +20,17 @@ import { customerResource } from '@/resources/customers'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
+  initialData: TData[]
 }
 
 const DataTableCustomer = <TData, TValue>({
   columns,
+  initialData,
 }: DataTableProps<TData, TValue>) => {
   const { data, isSuccess } = useQuery({
     queryKey: ['customers'],
-    queryFn: customerResource.getAll,
+    queryFn: () => customerResource.getAll('client'),
+    initialData,
   })
 
   const table = useReactTable({

@@ -26,7 +26,10 @@ const CreateCustomerDrawer = () => {
   })
 
   const handleSubmit = async (data: CreateUserFormSchemaProps) => {
-    const response = await mutateAsync(data)
+    const response = await mutateAsync({
+      params: data,
+      requesType: 'client',
+    })
 
     if (response?.error) {
       toast({
