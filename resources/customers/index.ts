@@ -37,6 +37,11 @@ const getAll = async (requesType: 'client' | 'server') => {
   return data
 }
 
-const customerResource = { create, getAll }
+const remove = async (customerId: string) => {
+  const { data } = await httpClient.delete(`/customers/${customerId}`)
+  return data
+}
+
+const customerResource = { create, getAll, remove }
 
 export { customerResource }
