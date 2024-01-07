@@ -15,7 +15,7 @@ const DashboardSidebar = () => {
       </SidebarLink>
 
       <SidebarLink
-        href="https://discord.com"
+        href="https://discord.gg/JHxjsfuK4S"
         passHref={true}
         className="mt-auto"
       >

@@ -9,7 +9,7 @@ export default function Login() {
             Acessar painel
           </h1>
           <p className="text-sm text-muted-foreground">
-            Gerencia seus clientes e serviços
+            Gerencie seus clientes e serviços
           </p>
 
           <UserSignInForm />
