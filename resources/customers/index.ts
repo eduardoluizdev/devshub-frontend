@@ -1,6 +1,8 @@
+import { getServerSession } from 'next-auth'
 import { getSession } from 'next-auth/react'
 
 import { Customer } from '@/entities/customer'
+import { authOptions } from '@/lib/auth'
 
 const create = async (data: Customer) => {
   const session = await getSession()
@@ -27,6 +29,26 @@ const create = async (data: Customer) => {
   }
 }
 
-const customerResource = { create }
+const get = async () => {
+  const session = await getServerSession(authOptions)
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/customers`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${session?.user.access_token}`,
+        },
+      }
+    ).then((res) => res.json())
+
+    return response.customers as Customer[]
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const customerResource = { create, get }
 
 export { customerResource }
