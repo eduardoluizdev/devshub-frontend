@@ -1,5 +1,6 @@
 'use client'
 
+import { useQuery } from '@tanstack/react-query'
 import {
   ColumnDef,
   flexRender,
@@ -15,18 +16,22 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { customerResource } from '@/resources/customers'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
-  data: TData[]
 }
 
 const DataTableCustomer = <TData, TValue>({
   columns,
-  data,
 }: DataTableProps<TData, TValue>) => {
+  const { data, isSuccess } = useQuery({
+    queryKey: ['customers'],
+    queryFn: customerResource.getAll,
+  })
+
   const table = useReactTable({
-    data,
+    data: data?.customers,
     columns,
     getCoreRowModel: getCoreRowModel(),
   })
@@ -53,7 +58,7 @@ const DataTableCustomer = <TData, TValue>({
           ))}
         </TableHeader>
         <TableBody>
-          {table.getRowModel().rows?.length ? (
+          {isSuccess ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}
@@ -69,10 +74,17 @@ const DataTableCustomer = <TData, TValue>({
           ) : (
             <TableRow>
               <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
+                Carregando...
               </TableCell>
             </TableRow>
           )}
+          {/* {isFetching && (
+            <TableRow>
+              <TableCell colSpan={columns.length} className="h-24 text-center">
+
+              </TableCell>
+            </TableRow>
+          )} */}
         </TableBody>
       </Table>
     </div>

@@ -1,5 +1,6 @@
 'use client'
 
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 
 import {
@@ -18,10 +19,14 @@ import {
 } from './create-customer-form'
 
 const CreateCustomerDrawer = () => {
+  const queryClient = useQueryClient()
   const [open, setOpen] = useState(false)
+  const { mutateAsync } = useMutation({
+    mutationFn: customerResource.create,
+  })
 
   const handleSubmit = async (data: CreateUserFormSchemaProps) => {
-    const response = await customerResource.create(data)
+    const response = await mutateAsync(data)
 
     if (response?.error) {
       toast({
@@ -30,6 +35,8 @@ const CreateCustomerDrawer = () => {
       })
       return
     }
+
+    queryClient.invalidateQueries({ queryKey: ['customers'] })
 
     toast({
       title: 'Cliente criado com sucesso',

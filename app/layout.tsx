@@ -3,9 +3,7 @@ import '@/styles/globals.css'
 import { Metadata } from 'next'
 import { Inter as FontSans } from 'next/font/google'
 
-import { AuthProvider } from '@/components/auth-provider'
-import { ThemeProvider } from '@/components/theme-provider'
-import { Toaster } from '@/components/ui/toaster'
+import { AppProviders } from '@/components/app-providers'
 import { cn } from '@/lib/cn'
 
 const fontSans = FontSans({
@@ -39,17 +37,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           fontSans.variable
         )}
       >
-        <AuthProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Toaster />
-            {children}
-          </ThemeProvider>
-        </AuthProvider>
+        <AppProviders>{children}</AppProviders>
       </body>
     </html>
   )
