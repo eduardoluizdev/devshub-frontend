@@ -13,6 +13,15 @@ const DashboardSidebar = () => {
         <Icon name="UserPlus" size={24} />
         <span>Clientes</span>
       </SidebarLink>
+
+      <SidebarLink
+        href="https://discord.com"
+        passHref={true}
+        className="mt-auto"
+      >
+        <Icon name="ExternalLink" size={24} />
+        <span>Discord</span>
+      </SidebarLink>
     </div>
   )
 }

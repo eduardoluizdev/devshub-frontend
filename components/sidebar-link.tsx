@@ -7,32 +7,30 @@ import { ReactNode } from 'react'
 type SidebarActiveLinkProps = {
   href: string
   children: ReactNode
+  passHref?: boolean
+  className?: string
 }
 
-type ActiveLinkProps = {
-  href: string
-  children: ReactNode
-}
-
-const SidebarLink = ({ href, children }: SidebarActiveLinkProps) => {
-  return <ActiveLink href={href}>{children}</ActiveLink>
-}
-
-const ActiveLink = ({ href, children }: ActiveLinkProps) => {
+const SidebarLink = ({
+  href,
+  children,
+  passHref = false,
+  className = '',
+}: SidebarActiveLinkProps) => {
   const pathname = usePathname()
   const isActive = pathname === href
 
   return (
-    <div>
-      <Link
-        href={href}
-        className={`${
-          isActive ? 'bg-gray-900 [&_svg]:text-primary' : ''
-        } flex items-center gap-4 w-full p-3 rounded transition-all hover:bg-gray-900`}
-      >
-        {children}
-      </Link>
-    </div>
+    <Link
+      href={href}
+      className={`${
+        isActive ? 'bg-gray-900 [&_svg]:text-primary' : ''
+      } flex items-center gap-4 w-full p-3 rounded transition-all hover:bg-gray-900 ${className}`}
+      passHref={passHref}
+      target={passHref ? '_blank' : undefined}
+    >
+      {children}
+    </Link>
   )
 }
 

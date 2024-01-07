@@ -1,7 +1,5 @@
 import { isEmpty } from 'lodash'
 
-import { User } from '@/entities/user'
-
 export type LoginFormDataProps = {
   email: string
   password: string

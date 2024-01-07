@@ -1,7 +1,15 @@
+import { PageHeader } from '@/components/page-header'
+
+import { CreateCustomerDrawer } from './components/create-customer-drawer'
+
 export default async function Customers() {
   return (
-    <>
-      <h1>Customers</h1>
-    </>
+    <div>
+      <PageHeader title="Clientes" subtitle="Gerêncie seus clientes" />
+
+      <div className="mt-6">
+        <CreateCustomerDrawer />
+      </div>
+    </div>
   )
 }

@@ -1,5 +1,4 @@
 import { DashboardLayoutStructure } from '@/components/dashboard-layoyt-structure'
-import { DashboardTopbar } from '@/components/dashboard-topbar'
 
 export default function DashboardLayout({
   children,
