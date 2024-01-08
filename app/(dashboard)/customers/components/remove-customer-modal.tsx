@@ -12,6 +12,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
+import { Button } from '@/components/ui/button'
 import { toast } from '@/components/ui/use-toast'
 import { customerResource } from '@/resources/customers'
 
@@ -48,8 +49,10 @@ const RemoreCustomerModal = ({ customerId }: RemoreCustomerModalProps) => {
   }
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogTrigger className="w-full relative flex select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-muted cursor-pointer">
-        Deletar cliente
+      <AlertDialogTrigger asChild>
+        <Button variant="ghost" className="w-full">
+          Deletar
+        </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

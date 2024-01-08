@@ -15,23 +15,46 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { ServiceRenewalType } from '@/entities/service'
+
+const seriveObjectSchema = z.object({
+  name: z.string(),
+  price: z.number(),
+  renewal: z.nativeEnum(ServiceRenewalType),
+})
 
 const createUserFormSchema = z.object({
   name: z.string(),
   email: z.string().email(),
   phone: z.string().min(11).max(11),
   sector: z.string(),
+  services: z.array(seriveObjectSchema).optional(),
 })
 
-export type CreateUserFormSchemaProps = z.infer<typeof createUserFormSchema>
+export type CreateCustomerFormSchemaProps = z.infer<typeof createUserFormSchema>
 
 type CreateUserFormProps = {
-  handleSubmit: (data: CreateUserFormSchemaProps) => void
+  handleSubmit: (data: CreateCustomerFormSchemaProps) => void
+  defaultValues?: CreateCustomerFormSchemaProps
+  disabled?: boolean
 }
 
-const CreateUserForm = ({ handleSubmit }: CreateUserFormProps) => {
-  const form = useForm<CreateUserFormSchemaProps>({
+const CreateUserForm = ({
+  handleSubmit,
+  defaultValues,
+  disabled,
+}: CreateUserFormProps) => {
+  const form = useForm<CreateCustomerFormSchemaProps>({
     resolver: zodResolver(createUserFormSchema),
+    defaultValues: defaultValues
+      ? {
+          name: defaultValues.name,
+          email: defaultValues.email,
+          phone: defaultValues.phone,
+          sector: defaultValues.sector,
+          services: defaultValues.services,
+        }
+      : {},
   })
 
   return (
@@ -40,11 +63,16 @@ const CreateUserForm = ({ handleSubmit }: CreateUserFormProps) => {
         <FormField
           control={form.control}
           name="name"
-          render={({ field }) => (
+          render={({ field: { value, onChange } }) => (
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="Nome" {...field} />
+                <Input
+                  placeholder="Nome"
+                  value={value}
+                  onChange={onChange}
+                  disabled={disabled}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -53,11 +81,16 @@ const CreateUserForm = ({ handleSubmit }: CreateUserFormProps) => {
         <FormField
           control={form.control}
           name="email"
-          render={({ field }) => (
+          render={({ field: { value, onChange } }) => (
             <FormItem>
               <FormLabel>E-mail</FormLabel>
               <FormControl>
-                <Input placeholder="E-mail" {...field} />
+                <Input
+                  placeholder="E-mail"
+                  value={value}
+                  onChange={onChange}
+                  disabled={disabled}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -66,11 +99,16 @@ const CreateUserForm = ({ handleSubmit }: CreateUserFormProps) => {
         <FormField
           control={form.control}
           name="phone"
-          render={({ field }) => (
+          render={({ field: { value, onChange } }) => (
             <FormItem>
               <FormLabel>Telefone/WhatsApp</FormLabel>
               <FormControl>
-                <Input placeholder="+55 99 99999-9999" {...field} />
+                <Input
+                  placeholder="+55 99 99999-9999"
+                  value={value}
+                  onChange={onChange}
+                  disabled={disabled}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -79,20 +117,28 @@ const CreateUserForm = ({ handleSubmit }: CreateUserFormProps) => {
         <FormField
           control={form.control}
           name="sector"
-          render={({ field }) => (
+          render={({ field: { value, onChange } }) => (
             <FormItem>
               <FormLabel>Setor</FormLabel>
               <FormControl>
-                <Input placeholder="Setor" {...field} />
+                <Input
+                  placeholder="Setor"
+                  value={value}
+                  onChange={onChange}
+                  disabled={disabled}
+                />
               </FormControl>
-              <FormDescription>
-                Descreva o setor que o cliente atua.
-              </FormDescription>
+              {!disabled && (
+                <FormDescription>
+                  Descreva o setor que o cliente atua.
+                </FormDescription>
+              )}
+
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        {!disabled && <Button type="submit">Salvar</Button>}
       </form>
     </Form>
   )

@@ -37,11 +37,23 @@ const getAll = async (requesType: 'client' | 'server') => {
   return data
 }
 
+const update = async (customerId: string, params: Customer) => {
+  console.log('customerId', customerId)
+  console.log('params', params)
+  const { data } = await httpClient.put(`/customers/${customerId}`, {
+    name: params.name,
+    email: params.email,
+    phone: params.phone,
+    sector: params.sector,
+  })
+  return data
+}
+
 const remove = async (customerId: string) => {
   const { data } = await httpClient.delete(`/customers/${customerId}`)
   return data
 }
 
-const customerResource = { create, getAll, remove }
+const customerResource = { create, getAll, update, remove }
 
 export { customerResource }

@@ -7,13 +7,12 @@ import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Customer } from '@/entities/customer'
 
+import { CustomerModal } from './edit-customer-modal'
 import { RemoreCustomerModal } from './remove-customer-modal'
 
 const dataTableCustomersColumns: ColumnDef<Customer>[] = [
@@ -52,11 +51,9 @@ const dataTableCustomersColumns: ColumnDef<Customer>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Ações</DropdownMenuLabel>
+            <CustomerModal customer={customer} type="view" />
+            <CustomerModal customer={customer} type="edit" />
             <RemoreCustomerModal customerId={customer.id!} />
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )
