@@ -5,7 +5,7 @@ import { customerResource } from '@/resources/customers'
 export function useCustomers() {
   const { data, isFetching } = useQuery({
     queryKey: ['customers'],
-    queryFn: customerResource.getAll,
+    queryFn: () => customerResource.getAll('client'),
     staleTime: Infinity,
   })
 

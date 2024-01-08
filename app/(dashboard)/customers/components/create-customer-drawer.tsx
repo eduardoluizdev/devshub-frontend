@@ -14,8 +14,8 @@ import { toast } from '@/components/ui/use-toast'
 import { customerResource } from '@/resources/customers'
 
 import {
+  CreateCustomerFormSchemaProps,
   CreateUserForm,
-  CreateUserFormSchemaProps,
 } from './create-customer-form'
 
 const CreateCustomerDrawer = () => {
@@ -25,7 +25,7 @@ const CreateCustomerDrawer = () => {
     mutationFn: customerResource.create,
   })
 
-  const handleSubmit = async (data: CreateUserFormSchemaProps) => {
+  const handleSubmit = async (data: CreateCustomerFormSchemaProps) => {
     const response = await mutateAsync({
       params: data,
       requesType: 'client',
