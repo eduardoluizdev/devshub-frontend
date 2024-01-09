@@ -30,7 +30,12 @@ const CreateServiceDrawer = ({ customers }: CreateServiceDrawerProps) => {
 
   const handleSubmit = async (data: ServiceFormSchemaProps) => {
     const response = await mutateAsync({
-      params: data,
+      params: {
+        name: data.name,
+        price: data.price,
+        renewal: data.renewal,
+        customerId: data.customerId ? data.customerId : undefined,
+      },
       requesType: 'client',
     })
 

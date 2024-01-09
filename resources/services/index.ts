@@ -26,7 +26,7 @@ const create = async ({ params, requesType = 'client' }: ServiceParams) => {
       renewal: params.renewal,
     },
     {
-      params: { customerId: params.customerId },
+      params: params.customerId ? { customerId: params.customerId } : {},
     }
   )
 
@@ -40,7 +40,7 @@ const getAll = async (requesType: 'client' | 'server') => {
     ? (requestClient = httpServer)
     : (requestClient = httpClient)
 
-  const { data } = await requestClient.get('/services')
+  const { data } = await requestClient.get('/services/me')
   return data
 }
 

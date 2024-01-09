@@ -24,6 +24,17 @@ type CustomerModalProps = {
 }
 
 const CustomerModal = ({ customer, type }: CustomerModalProps) => {
+  const customerWithServices = {
+    ...customer,
+    services: customer.services
+      ? customer.services
+          .filter((service) => typeof service.customerId === 'string')
+          .map((service) => ({
+            ...service,
+            customerId: service.customerId as string,
+          }))
+      : undefined,
+  }
   const queryClient = useQueryClient()
   const [open, setOpen] = useState(false)
 
@@ -74,7 +85,7 @@ const CustomerModal = ({ customer, type }: CustomerModalProps) => {
         <div>
           <CustomerForm
             handleSubmit={handleEdit}
-            defaultValues={customer}
+            defaultValues={customerWithServices}
             disabled={type === 'view' ? true : false}
           />
         </div>

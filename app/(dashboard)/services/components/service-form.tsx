@@ -30,7 +30,7 @@ const createServiceFormSchema = z.object({
   name: z.string(),
   price: z.string().transform((value) => Number(value)),
   renewal: z.nativeEnum(ServiceRenewalType),
-  customerId: z.string(),
+  customerId: z.string().optional(),
 })
 
 export type ServiceFormSchemaProps = z.infer<typeof createServiceFormSchema>
@@ -66,7 +66,7 @@ const ServiceForm = ({
         <FormField
           control={form.control}
           name="customerId"
-          render={({ field: { value, onChange } }) => (
+          render={({ field: { onChange } }) => (
             <FormItem>
               <FormLabel>Cliente</FormLabel>
               <Select onValueChange={onChange}>
@@ -129,7 +129,7 @@ const ServiceForm = ({
         <FormField
           control={form.control}
           name="renewal"
-          render={({ field: { value, onChange } }) => (
+          render={({ field: { onChange } }) => (
             <FormItem>
               <FormLabel>Período de renovação</FormLabel>
               <Select onValueChange={onChange}>

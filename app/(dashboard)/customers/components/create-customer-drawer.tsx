@@ -24,7 +24,10 @@ const CreateCustomerDrawer = () => {
 
   const handleSubmit = async (data: CustomerFormSchemaProps) => {
     const response = await mutateAsync({
-      params: data,
+      params: {
+        ...data,
+        services: data.services ? data.services : undefined,
+      },
       requesType: 'client',
     })
 
@@ -37,6 +40,7 @@ const CreateCustomerDrawer = () => {
     }
 
     queryClient.invalidateQueries({ queryKey: ['customers'] })
+    queryClient.invalidateQueries({ queryKey: ['services'] })
 
     toast({
       title: 'Cliente criado com sucesso',
