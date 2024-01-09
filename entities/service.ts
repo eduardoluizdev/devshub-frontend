@@ -6,8 +6,9 @@ export enum ServiceRenewalType {
 }
 
 export interface Service {
-  customerId: string | undefined
+  id?: string
   name: string
   price: number
   renewal: ServiceRenewalType
+  customerId: string | undefined
 }

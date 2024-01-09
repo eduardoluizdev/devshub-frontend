@@ -13,7 +13,7 @@ import {
 import { Customer } from '@/entities/customer'
 
 import { CustomerModal } from './customer-modal'
-import { RemoreCustomerModal } from './remove-customer-modal'
+import { RemoveCustomerModal } from './remove-customer-modal'
 
 const dataTableCustomersColumns: ColumnDef<Customer>[] = [
   {
@@ -69,7 +69,7 @@ const dataTableCustomersColumns: ColumnDef<Customer>[] = [
           <DropdownMenuContent align="end">
             <CustomerModal customer={customer} type="view" />
             <CustomerModal customer={customer} type="edit" />
-            <RemoreCustomerModal customerId={customer.id!} />
+            <RemoveCustomerModal customerId={customer.id!} />
           </DropdownMenuContent>
         </DropdownMenu>
       )

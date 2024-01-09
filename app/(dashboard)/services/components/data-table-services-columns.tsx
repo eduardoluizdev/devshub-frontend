@@ -2,7 +2,16 @@
 
 import { ColumnDef } from '@tanstack/react-table'
 
+import Icon from '@/components/icons'
+import { Button } from '@/components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 import { Service } from '@/entities/service'
+
+import { RemoveServiceModal } from './remove-service-modal'
 
 type ServiceWithCustomer = Service & {
   customer: {
@@ -37,6 +46,30 @@ const dataTableCustomersColumns: ColumnDef<ServiceWithCustomer>[] = [
             </span>
           )}
         </div>
+      )
+    },
+  },
+  {
+    accessorKey: 'actions',
+    header: 'Ações',
+    cell: ({ row }) => {
+      const service = row.original
+
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0">
+              <span className="sr-only">Open menu</span>
+              <Icon name="MoreHorizontal" className="h-5 w-5" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <RemoveServiceModal
+              serviceId={service.id!}
+              customerId={service.customerId}
+            />
+          </DropdownMenuContent>
+        </DropdownMenu>
       )
     },
   },

@@ -56,11 +56,24 @@ const getAll = async (requesType: 'client' | 'server') => {
 //   return data
 // }
 
-// const remove = async (customerId: string) => {
-//   const { data } = await httpClient.delete(`/customers/${customerId}`)
-//   return data
-// }
+const remove = async ({
+  serviceId,
+  customerId,
+}: {
+  serviceId: string
+  customerId?: string
+}) => {
+  if (customerId) {
+    const { data } = await httpClient.delete(
+      `/services/${serviceId}?customerId=${customerId}`
+    )
+    return data
+  }
 
-const serviceResource = { create, getAll }
+  const { data } = await httpClient.delete(`/services/${serviceId}`)
+  return data
+}
+
+const serviceResource = { create, getAll, remove }
 
 export { serviceResource }

@@ -14,35 +14,42 @@ import {
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
 import { toast } from '@/components/ui/use-toast'
-import { customerResource } from '@/resources/customers'
+import { serviceResource } from '@/resources/services'
 
-type RemoreCustomerModalProps = {
-  customerId: string
+type RemoreServiveModalProps = {
+  serviceId: string
+  customerId?: string
 }
 
-const RemoveCustomerModal = ({ customerId }: RemoreCustomerModalProps) => {
+const RemoveServiceModal = ({
+  serviceId,
+  customerId,
+}: RemoreServiveModalProps) => {
   const queryClient = useQueryClient()
   const [open, setOpen] = useState(false)
   const { mutateAsync } = useMutation({
-    mutationFn: customerResource.remove,
+    mutationFn: serviceResource.remove,
   })
 
   const handleRemove = async () => {
-    const response = await mutateAsync(customerId)
+    const response = await mutateAsync({
+      serviceId,
+      customerId,
+    })
 
     if (response?.error) {
       toast({
-        title: 'Erro ao remover cliente',
+        title: 'Erro ao remover o serviço',
         description: response.message,
       })
       return
     }
 
-    queryClient.invalidateQueries({ queryKey: ['customers'] })
+    queryClient.invalidateQueries({ queryKey: ['services'] })
 
     toast({
-      title: 'Cliente removido com sucesso',
-      description: `O cliente foi removido com sucesso`,
+      title: 'Serviço removido com sucesso',
+      description: `O serviço foi removido com sucesso`,
     })
 
     setOpen(false)
@@ -73,4 +80,4 @@ const RemoveCustomerModal = ({ customerId }: RemoreCustomerModalProps) => {
   )
 }
 
-export { RemoveCustomerModal }
+export { RemoveServiceModal }
