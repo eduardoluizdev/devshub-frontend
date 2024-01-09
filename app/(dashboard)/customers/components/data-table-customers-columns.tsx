@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Customer } from '@/entities/customer'
 
-import { CustomerModal } from './edit-customer-modal'
+import { CustomerModal } from './customer-modal'
 import { RemoreCustomerModal } from './remove-customer-modal'
 
 const dataTableCustomersColumns: ColumnDef<Customer>[] = [

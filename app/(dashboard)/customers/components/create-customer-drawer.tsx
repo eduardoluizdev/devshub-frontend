@@ -13,10 +13,7 @@ import {
 import { toast } from '@/components/ui/use-toast'
 import { customerResource } from '@/resources/customers'
 
-import {
-  CreateCustomerFormSchemaProps,
-  CreateUserForm,
-} from './create-customer-form'
+import { CustomerFormSchemaProps, UserForm } from './customer-form'
 
 const CreateCustomerDrawer = () => {
   const queryClient = useQueryClient()
@@ -25,7 +22,7 @@ const CreateCustomerDrawer = () => {
     mutationFn: customerResource.create,
   })
 
-  const handleSubmit = async (data: CreateCustomerFormSchemaProps) => {
+  const handleSubmit = async (data: CustomerFormSchemaProps) => {
     const response = await mutateAsync({
       params: data,
       requesType: 'client',
@@ -59,7 +56,7 @@ const CreateCustomerDrawer = () => {
           <DrawerHeader>
             <DrawerTitle>Adicione um cliente</DrawerTitle>
           </DrawerHeader>
-          <CreateUserForm handleSubmit={handleSubmit} />
+          <UserForm handleSubmit={handleSubmit} />
         </div>
       </DrawerContent>
     </Drawer>

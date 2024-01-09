@@ -16,21 +16,18 @@ import { toast } from '@/components/ui/use-toast'
 import { Customer } from '@/entities/customer'
 import { customerResource } from '@/resources/customers'
 
-import {
-  CreateCustomerFormSchemaProps,
-  CreateUserForm,
-} from './create-customer-form'
+import { CustomerFormSchemaProps, UserForm } from './customer-form'
 
-type EditCustomerModalProps = {
+type CustomerModalProps = {
   customer: Customer
   type?: 'view' | 'edit'
 }
 
-const CustomerModal = ({ customer, type }: EditCustomerModalProps) => {
+const CustomerModal = ({ customer, type }: CustomerModalProps) => {
   const queryClient = useQueryClient()
   const [open, setOpen] = useState(false)
 
-  const handleEdit = async (data: CreateCustomerFormSchemaProps) => {
+  const handleEdit = async (data: CustomerFormSchemaProps) => {
     const reponse = await customerResource.update(customer.id!, {
       name: data.name,
       email: data.email,
@@ -75,7 +72,7 @@ const CustomerModal = ({ customer, type }: EditCustomerModalProps) => {
           </DialogDescription>
         </DialogHeader>
         <div>
-          <CreateUserForm
+          <UserForm
             handleSubmit={handleEdit}
             defaultValues={customer}
             disabled={type === 'view' ? true : false}

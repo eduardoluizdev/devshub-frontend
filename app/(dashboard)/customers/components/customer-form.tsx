@@ -31,20 +31,20 @@ const createUserFormSchema = z.object({
   services: z.array(seriveObjectSchema).optional(),
 })
 
-export type CreateCustomerFormSchemaProps = z.infer<typeof createUserFormSchema>
+export type CustomerFormSchemaProps = z.infer<typeof createUserFormSchema>
 
-type CreateUserFormProps = {
-  handleSubmit: (data: CreateCustomerFormSchemaProps) => void
-  defaultValues?: CreateCustomerFormSchemaProps
+type CustomerFormProps = {
+  handleSubmit: (data: CustomerFormSchemaProps) => void
+  defaultValues?: CustomerFormSchemaProps
   disabled?: boolean
 }
 
-const CreateUserForm = ({
+const UserForm = ({
   handleSubmit,
   defaultValues,
   disabled,
-}: CreateUserFormProps) => {
-  const form = useForm<CreateCustomerFormSchemaProps>({
+}: CustomerFormProps) => {
+  const form = useForm<CustomerFormSchemaProps>({
     resolver: zodResolver(createUserFormSchema),
     defaultValues: defaultValues
       ? {
@@ -144,4 +144,4 @@ const CreateUserForm = ({
   )
 }
 
-export { CreateUserForm }
+export { UserForm }
