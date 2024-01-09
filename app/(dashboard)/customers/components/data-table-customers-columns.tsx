@@ -35,6 +35,22 @@ const dataTableCustomersColumns: ColumnDef<Customer>[] = [
   {
     accessorKey: 'services',
     header: 'Serviços',
+    cell: ({ row }) => {
+      const customerServices = row.original.services
+
+      return (
+        <div className="flex gap-2">
+          {customerServices?.map((service) => (
+            <span
+              key={`${service.customerId}--${service.name}`}
+              className="bg-muted-foreground p-1 rounded text-primary-foreground"
+            >
+              {service.name}
+            </span>
+          ))}
+        </div>
+      )
+    },
   },
   {
     accessorKey: 'actions',

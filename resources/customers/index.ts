@@ -38,8 +38,6 @@ const getAll = async (requesType: 'client' | 'server') => {
 }
 
 const update = async (customerId: string, params: Customer) => {
-  console.log('customerId', customerId)
-  console.log('params', params)
   const { data } = await httpClient.put(`/customers/${customerId}`, {
     name: params.name,
     email: params.email,

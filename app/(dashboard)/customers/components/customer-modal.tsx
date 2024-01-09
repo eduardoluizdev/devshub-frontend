@@ -16,7 +16,7 @@ import { toast } from '@/components/ui/use-toast'
 import { Customer } from '@/entities/customer'
 import { customerResource } from '@/resources/customers'
 
-import { CustomerFormSchemaProps, UserForm } from './customer-form'
+import { CustomerForm, CustomerFormSchemaProps } from './customer-form'
 
 type CustomerModalProps = {
   customer: Customer
@@ -33,7 +33,7 @@ const CustomerModal = ({ customer, type }: CustomerModalProps) => {
       email: data.email,
       phone: data.phone,
       sector: data.sector,
-      services: data.services || [],
+      services: data.services,
     })
 
     if (reponse?.error) {
@@ -72,7 +72,7 @@ const CustomerModal = ({ customer, type }: CustomerModalProps) => {
           </DialogDescription>
         </DialogHeader>
         <div>
-          <UserForm
+          <CustomerForm
             handleSubmit={handleEdit}
             defaultValues={customer}
             disabled={type === 'view' ? true : false}

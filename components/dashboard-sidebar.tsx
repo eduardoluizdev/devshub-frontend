@@ -14,6 +14,11 @@ const DashboardSidebar = () => {
         <span>Clientes</span>
       </SidebarLink>
 
+      <SidebarLink href="/services">
+        <Icon name="Settings" size={24} />
+        <span>Serviços</span>
+      </SidebarLink>
+
       <SidebarLink
         href="https://discord.gg/JHxjsfuK4S"
         passHref={true}

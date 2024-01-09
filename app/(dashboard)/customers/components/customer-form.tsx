@@ -21,9 +21,10 @@ const seriveObjectSchema = z.object({
   name: z.string(),
   price: z.number(),
   renewal: z.nativeEnum(ServiceRenewalType),
+  customerId: z.string(),
 })
 
-const createUserFormSchema = z.object({
+const createCustomerFormSchema = z.object({
   name: z.string(),
   email: z.string().email(),
   phone: z.string().min(11).max(11),
@@ -31,7 +32,7 @@ const createUserFormSchema = z.object({
   services: z.array(seriveObjectSchema).optional(),
 })
 
-export type CustomerFormSchemaProps = z.infer<typeof createUserFormSchema>
+export type CustomerFormSchemaProps = z.infer<typeof createCustomerFormSchema>
 
 type CustomerFormProps = {
   handleSubmit: (data: CustomerFormSchemaProps) => void
@@ -39,13 +40,13 @@ type CustomerFormProps = {
   disabled?: boolean
 }
 
-const UserForm = ({
+const CustomerForm = ({
   handleSubmit,
   defaultValues,
   disabled,
 }: CustomerFormProps) => {
   const form = useForm<CustomerFormSchemaProps>({
-    resolver: zodResolver(createUserFormSchema),
+    resolver: zodResolver(createCustomerFormSchema),
     defaultValues: defaultValues
       ? {
           name: defaultValues.name,
@@ -144,4 +145,4 @@ const UserForm = ({
   )
 }
 
-export { UserForm }
+export { CustomerForm }
