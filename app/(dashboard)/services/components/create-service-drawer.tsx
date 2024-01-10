@@ -32,7 +32,7 @@ const CreateServiceDrawer = ({ customers }: CreateServiceDrawerProps) => {
     const response = await mutateAsync({
       params: {
         name: data.name,
-        price: data.price,
+        price: Number(data.price),
         renewal: data.renewal,
         customerId: data.customerId ? data.customerId : undefined,
       },

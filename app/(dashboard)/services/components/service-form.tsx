@@ -75,6 +75,7 @@ const ServiceForm = ({
                 onValueChange={onChange}
                 defaultValue=""
                 value={value ? value : ''}
+                disabled={disabled}
               >
                 <FormControl>
                   <SelectTrigger>
@@ -138,7 +139,12 @@ const ServiceForm = ({
           render={({ field: { onChange, value } }) => (
             <FormItem>
               <FormLabel>Período de renovação</FormLabel>
-              <Select onValueChange={onChange} value={value ? value : ''}>
+              <Select
+                onValueChange={onChange}
+                value={value ? value : ''}
+                defaultValue=""
+                disabled={disabled}
+              >
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Selecione um período de renovação" />

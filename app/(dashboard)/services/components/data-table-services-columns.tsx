@@ -65,6 +65,7 @@ const dataTableCustomersColumns: ColumnDef<ServiceWithCustomer>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
+            <ServiceModal service={service} type="view" />
             <ServiceModal service={service} type="edit" />
             <RemoveServiceModal
               serviceId={service.id!}

@@ -41,7 +41,6 @@ const ServiceModal = ({ service, type }: ServiceModalProps) => {
   })
 
   const handleEdit = async (data: ServiceFormSchemaProps) => {
-    console.log(data)
     const reponse = await serviceResource.update(service.id!, {
       name: data.name,
       price: Number(data.price),
