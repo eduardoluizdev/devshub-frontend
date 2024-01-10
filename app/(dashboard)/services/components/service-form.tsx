@@ -1,7 +1,6 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
@@ -28,9 +27,9 @@ import { ServiceRenewalType } from '@/entities/service'
 
 const createServiceFormSchema = z.object({
   name: z.string(),
-  price: z.string().transform((value) => Number(value)),
+  price: z.string(),
   renewal: z.nativeEnum(ServiceRenewalType),
-  customerId: z.string().optional(),
+  customerId: z.string().nullable(),
 })
 
 export type ServiceFormSchemaProps = z.infer<typeof createServiceFormSchema>
@@ -48,6 +47,7 @@ const ServiceForm = ({
   disabled,
   customers,
 }: CustomerFormProps) => {
+  console.log(defaultValues)
   const form = useForm<ServiceFormSchemaProps>({
     resolver: zodResolver(createServiceFormSchema),
     defaultValues: defaultValues
@@ -55,7 +55,9 @@ const ServiceForm = ({
           name: defaultValues.name,
           price: defaultValues.price,
           renewal: defaultValues.renewal,
-          customerId: defaultValues.customerId,
+          customerId: defaultValues.customerId
+            ? defaultValues.customerId
+            : null,
         }
       : {},
   })
@@ -66,17 +68,21 @@ const ServiceForm = ({
         <FormField
           control={form.control}
           name="customerId"
-          render={({ field: { onChange } }) => (
+          render={({ field: { onChange, value } }) => (
             <FormItem>
               <FormLabel>Cliente</FormLabel>
-              <Select onValueChange={onChange}>
+              <Select
+                onValueChange={onChange}
+                defaultValue=""
+                value={value ? value : ''}
+              >
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Selecione um cliente" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {customers.map((customer) => (
+                  {customers?.map((customer) => (
                     <SelectItem key={customer.id} value={customer.id!}>
                       {customer.name}
                     </SelectItem>
@@ -129,10 +135,10 @@ const ServiceForm = ({
         <FormField
           control={form.control}
           name="renewal"
-          render={({ field: { onChange } }) => (
+          render={({ field: { onChange, value } }) => (
             <FormItem>
               <FormLabel>Período de renovação</FormLabel>
-              <Select onValueChange={onChange}>
+              <Select onValueChange={onChange} value={value ? value : ''}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Selecione um período de renovação" />

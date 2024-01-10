@@ -26,7 +26,7 @@ const create = async ({ params, requesType = 'client' }: ServiceParams) => {
       renewal: params.renewal,
     },
     {
-      params: params.customerId ? { customerId: params.customerId } : {},
+      params: params.customerId ? { customerId: params.customerId } : undefined,
     }
   )
 
@@ -44,17 +44,30 @@ const getAll = async (requesType: 'client' | 'server') => {
   return data
 }
 
-// const update = async (customerId: string, params: Customer) => {
-//   console.log('customerId', customerId)
-//   console.log('params', params)
-//   const { data } = await httpClient.put(`/customers/${customerId}`, {
-//     name: params.name,
-//     email: params.email,
-//     phone: params.phone,
-//     sector: params.sector,
-//   })
-//   return data
-// }
+const update = async (serviceId: string, params: Service) => {
+  if (params.customerId) {
+    const { data } = await httpClient.put(
+      `/services/${serviceId}`,
+      {
+        name: params.name,
+        price: params.price,
+        renewal: params.renewal,
+      },
+      {
+        params: { customerId: params.customerId ? params.customerId : null },
+      }
+    )
+    return data
+  }
+
+  const { data } = await httpClient.put(`/services/${serviceId}`, {
+    name: params.name,
+    price: params.price,
+    renewal: params.renewal,
+  })
+
+  return data
+}
 
 const remove = async ({
   serviceId,
@@ -74,6 +87,6 @@ const remove = async ({
   return data
 }
 
-const serviceResource = { create, getAll, remove }
+const serviceResource = { create, getAll, update, remove }
 
 export { serviceResource }

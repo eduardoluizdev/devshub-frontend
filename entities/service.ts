@@ -10,5 +10,9 @@ export interface Service {
   name: string
   price: number
   renewal: ServiceRenewalType
-  customerId: string | undefined
+  customer?: {
+    id: string
+    name: string
+  }
+  customerId?: string
 }

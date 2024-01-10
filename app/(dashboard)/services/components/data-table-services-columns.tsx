@@ -12,6 +12,7 @@ import {
 import { Service } from '@/entities/service'
 
 import { RemoveServiceModal } from './remove-service-modal'
+import { ServiceModal } from './service-modal'
 
 type ServiceWithCustomer = Service & {
   customer: {
@@ -64,6 +65,7 @@ const dataTableCustomersColumns: ColumnDef<ServiceWithCustomer>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
+            <ServiceModal service={service} type="edit" />
             <RemoveServiceModal
               serviceId={service.id!}
               customerId={service.customerId}
