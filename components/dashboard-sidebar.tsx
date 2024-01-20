@@ -19,6 +19,11 @@ const DashboardSidebar = () => {
         <span>Serviços</span>
       </SidebarLink>
 
+      <SidebarLink href="/whatsapp">
+        <Icon name="BluetoothConnected" size={24} />
+        <span>WhatsApp</span>
+      </SidebarLink>
+
       <SidebarLink
         href="https://discord.gg/JHxjsfuK4S"
         passHref={true}

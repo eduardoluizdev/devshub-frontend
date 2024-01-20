@@ -2,11 +2,16 @@
 
 import { signOut } from 'next-auth/react'
 
+import { usersResource } from '@/resources/users'
+
 import Icon from './icons'
 import { Button } from './ui/button'
 
 export function UserSignOutButton() {
-  const handleSignOut = () => signOut({ callbackUrl: '/login' })
+  const handleSignOut = async () => {
+    signOut({ callbackUrl: '/login' })
+    await usersResource.signout()
+  }
 
   return (
     <Button
