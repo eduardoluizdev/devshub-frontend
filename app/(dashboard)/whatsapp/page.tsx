@@ -11,6 +11,8 @@ export default async function WhatsApp() {
   const initialWhatsApp = await whatsAppResource.session('server')
   const initialCustomer = await customerResource.getAll('server')
 
+  console.log(initialCustomer)
+
   return (
     <div className="flex flex-col gap-6">
       <PageHeader

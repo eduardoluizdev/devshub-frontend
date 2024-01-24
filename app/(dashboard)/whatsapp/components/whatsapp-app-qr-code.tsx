@@ -27,16 +27,13 @@ const WhatsappAppQrCode = ({
 
   return (
     <div>
+      <p>Status: {data?.connected ? 'conectado' : 'desconectado'}</p>
       {!data?.connected && (
         <>
-          <p>Status: {data?.connected ? 'conectado' : 'desconectado'}</p>
           {!data?.connected && <p>Tentativas: {data?.attempts}</p>}
           {data?.qr && !data?.connected && (
             <Image src={data?.qr} alt="qrcode" width={200} height={200} />
           )}
-          <button onClick={handleInitializer}>initializer</button>
-          ||||
-          <button onClick={handleClose}>close</button>
         </>
       )}
 
