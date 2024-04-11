@@ -1,8 +1,7 @@
-import { getServerSession } from 'next-auth'
 import { getSession } from 'next-auth/react'
 
+import { auth } from '@/app/auth'
 import { Service } from '@/entities/service'
-import { authOptions } from '@/lib/auth'
 import { httpClient } from '@/lib/httpClient'
 import { httpServer } from '@/lib/httpServer'
 
@@ -15,7 +14,7 @@ const create = async ({ params, requesType = 'client' }: ServiceParams) => {
   let session = null
 
   requesType === 'server'
-    ? (session = await getServerSession(authOptions))
+    ? (session = await auth())
     : (session = await getSession())
 
   const { data } = await httpClient.post(

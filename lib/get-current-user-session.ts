@@ -1,10 +1,8 @@
-import { getServerSession } from 'next-auth'
-
+import { auth } from '@/app/auth'
 import { User } from '@/entities/user'
-import { authOptions } from '@/lib/auth'
 
 export async function getCurrentUserSession(): Promise<User | null> {
-  const session = await getServerSession(authOptions)
+  const session = await auth()
 
   const user = session?.user ?? null
 

@@ -1,13 +1,13 @@
-import { NextAuthOptions } from 'next-auth'
-import CredentialProvider from 'next-auth/providers/credentials'
+import type { NextAuthConfig } from 'next-auth'
+import Credentials from 'next-auth/providers/credentials'
 
 import { authorize } from '@/lib/authorize'
 import { jwt } from '@/lib/jwt'
 import { session } from '@/lib/session'
 
-export const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthConfig = {
   providers: [
-    CredentialProvider({
+    Credentials({
       name: 'credentials',
       credentials: {},
       authorize,
@@ -23,5 +23,5 @@ export const authOptions: NextAuthOptions = {
     jwt,
     session,
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.AUTH_SECRET,
 }

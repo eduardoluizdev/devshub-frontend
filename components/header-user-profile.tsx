@@ -1,11 +1,9 @@
-import { getServerSession } from 'next-auth'
-
+import { auth } from '@/app/auth'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { authOptions } from '@/lib/auth'
 import { getNameInitials } from '@/utils/get-name-initials'
 
 const UserHeaderProfile = async () => {
-  const session = await getServerSession(authOptions)
+  const session = await auth()
 
   if (!session) {
     return null

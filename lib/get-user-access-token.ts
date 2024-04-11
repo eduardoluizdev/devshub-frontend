@@ -1,6 +1,6 @@
 import { getServerSession } from 'next-auth'
 
-import { authOptions } from '@/lib/auth'
+import { authOptions } from '@/app/auth-options'
 
 type GetUserAccessTokenProps = {
   access_token: string | null
